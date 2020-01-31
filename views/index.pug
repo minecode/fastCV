@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1.text-center !{title}
+  p.text-center !{description}
+
+  .container
+    .row.text-center.mb-5( id='form')
+      h2.col-12.pt-5.text-center Choose modules
+    script populateWithModules( !{listOfModules}, !{contentFiles} )
+
+  .container
+    .row.text-center.mb-5( id='modules')
+      h2.col-12.pt-5.text-center Modules
