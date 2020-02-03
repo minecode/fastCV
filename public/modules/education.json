@@ -1,7 +1,8 @@
 {
-    "1st": 0,
-    "2nd": 0,
-    "3rd": 0,
-    "4th": 0,
-    "5th": 0
+    "max": 5,
+    "education": 0,
+    "description": 0,
+    "local": 0,
+    "start_date": 0,
+    "end_date": 0
 }
