@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 const populateWithModules = (listOfModules, contentModules) => {
 	listOfModules = listOfModules.sort();
-	var form = document.getElementById('form');
+	var form = document.getElementById('formModules');
 	form.setAttribute('class', 'row text-center');
 	listOfModules.forEach(element => {
 		var div = document.createElement('div');
@@ -47,22 +47,28 @@ const addModule = (module, contentModule) => {
 	h4.append(title);
 	div.append(h4);
 	var form = document.createElement('form');
-	var formDiv = document.createElement('div');
-	formDiv.setAttribute('class', 'form-group col-12');
-	var label = document.createElement('label');
-	label.setAttribute('for', 'for' + module);
-	var select = document.createElement('select');
-	select.setAttribute('id', 'for' + module);
-	select.setAttribute('onChange', 'appendFormDiv(form, content, this.selectedIndex + 1)');
-	for (var i = 0; i < content.max; i++) {
-		var option = document.createElement('option');
-		var text = document.createTextNode(i + 1);
-		option.append(text);
-		select.append(option);
+	if (content.max) {
+		var formDiv = document.createElement('div');
+		formDiv.setAttribute('class', 'form-group col-12');
+		var label = document.createElement('label');
+		label.setAttribute('for', 'for' + module);
+		var select = document.createElement('select');
+		select.setAttribute('id', 'for' + module);
+		select.setAttribute('onChange', 'appendFormDivs(form, ' + JSON.stringify(contentModule) + ', this.selectedIndex + 1)');
+
+		for (var i = 0; i < content.max; i++) {
+			var option = document.createElement('option');
+			var text = document.createTextNode(i + 1);
+			option.append(text);
+			select.append(option);
+		}
+		label.append(select);
+		formDiv.append(label);
+		form.append(formDiv);
 	}
-	label.append(select);
-	formDiv.append(label);
-	form.append(formDiv);
+
+	appendFormDiv(form, content);
+
 	div.append(form);
 	modules.append(div);
 };
@@ -76,31 +82,67 @@ const removeModule = (module, contentModule) => {
 	div.parentNode.removeChild(div);
 };
 
-const appendFormDiv = (form, content, count) => {
-	console.log('======================');
-	console.log(form);
-	console.log('======================');
-	console.log(content);
-	console.log('======================');
-	console.log(count);
-	console.log('======================');
-	for (var i = 0; i < count; i++) {
-		for (var element in content) {
-			if (element != 'max') {
+// eslint-disable-next-line no-unused-vars
+const appendFormDivs = (form, contentModule, count) => {
+	var content = JSON.parse(contentModule);
+	if (count < form.childNodes.length) {
+		for (var j = count; j < form.childNodes.length; j++) {
+			form.removeChild(document.getElementById('formDiv' + (j + 1)));
+		}
+	} else {
+		for (var i = 0; i < count; i++) {
+			var containsDiv = false;
+			for (var formDivId in form.childNodes) {
+				if (form.childNodes[formDivId].id == 'formDiv' + (i + 1)) {
+					containsDiv = true;
+					break;
+				}
+			}
+			if (!containsDiv) {
 				var formDiv = document.createElement('div');
 				formDiv.setAttribute('class', 'form-group col-12');
-				var label = document.createElement('label');
-				label.setAttribute('for', element + 'Form');
-				var text = document.createTextNode(element);
-				label.append(text);
-				formDiv.append(label);
-				var input = document.createElement('input');
-				input.setAttribute('type', 'text');
-				input.setAttribute('class', 'form-control');
-				input.setAttribute('id', element + 'Form');
-				formDiv.append(input);
+				formDiv.setAttribute('id', 'formDiv' + (i + 1));
+				for (var element in content) {
+					if (element != 'max') {
+						var label = document.createElement('label');
+						label.setAttribute('for', element + 'Form');
+						var text = document.createTextNode(element);
+						label.append(text);
+						formDiv.append(label);
+						var input = document.createElement('input');
+						input.setAttribute('type', 'text');
+						input.setAttribute('class', 'form-control');
+						input.setAttribute('id', element + 'Form');
+						formDiv.append(input);
+					}
+				}
 				form.append(formDiv);
 			}
 		}
 	}
+
 };
+
+const appendFormDiv = (form, content) => {
+	var formDiv = document.createElement('div');
+	formDiv.setAttribute('class', 'form-group col-12');
+	formDiv.setAttribute('id', 'formDiv1');
+	for (var element in content) {
+		if (element != 'max') {
+			var label = document.createElement('label');
+			label.setAttribute('for', element + 'Form');
+			var text = document.createTextNode(element);
+			label.append(text);
+			formDiv.append(label);
+			var input = document.createElement('input');
+			input.setAttribute('type', 'text');
+			input.setAttribute('class', 'form-control');
+			input.setAttribute('id', element + 'Form');
+			formDiv.append(input);
+		}
+	}
+	form.append(formDiv);
+};
+
+// eslint-disable-next-line no-unused-vars
+const populateWithTemplates = (listOfTemplates, contentTemplates) => {};

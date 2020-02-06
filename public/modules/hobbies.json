@@ -1,7 +1,5 @@
 {
-    "1st": 0,
-    "2nd": 0,
-    "3rd": 0,
-    "4th": 0,
-    "5th": 0
+    "max": 5,
+    "hobbie": 0,
+    "description": 0
 }

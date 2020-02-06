@@ -5,9 +5,15 @@ block content
   p.text-center !{description}
 
   .container
-    .row.text-center.mb-5( id='form')
+    .row.text-center.mb-5( id='formTemplates')
+      h2.col-12.pt-5.text-center Choose template
+      script populateWithTemplates( !{listOfTemplates}, !{contentTemplates} )
+
+
+  .container
+    .row.text-center.mb-5( id='formModules')
       h2.col-12.pt-5.text-center Choose modules
-    script populateWithModules( !{listOfModules}, !{contentFiles} )
+      script populateWithModules( !{listOfModules}, !{contentModules} )
 
   .container
     .row.text-center.mb-5.justify-content-center( id='modules')
