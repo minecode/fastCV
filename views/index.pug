@@ -1,20 +1,32 @@
 extends layout
 
 block content
-  h1.text-center !{title}
-  p.text-center !{description}
+  .container
+    .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center#home
+      h1.display-4 !{title}
+      p.lead !{description}
+
+  #accordion
+    .card-deck.mb-3.text-center
+      .card.mt-2.mb-2.box-shadow
+        .card-header#headingOne.btn.btn-link( data-toggle="collapse", data-target="#formTemplatesAccordion", aria-expanded="true" aria-controls="formTemplatesAccordion" )
+          h5.mb-0 Choose template
+
+        .collapse.show#formTemplatesAccordion( aria-labelledby="headingOne", data-parent="#accordion" )
+          .card-body.container
+            .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center#formTemplates
+              script populateWithTemplates( !{listOfTemplates}, !{contentTemplates} )
+    
+    .card-deck.mb-3.text-center
+      .card.mt-2.mb-2.box-shadow
+        .card-header#headingTwo.btn.btn-link.collapsed( data-toggle="collapse", data-target="#formModulesAccordion", aria-expanded="true" aria-controls="formModulesAccordion" )
+          h5.mb-0 Choose modules
+
+        .collapse#formModulesAccordion( aria-labelledby="headingTwo", data-parent="#accordion" )
+          .card-body.container
+            .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center#formModules
+              script populateWithModules( !{listOfModules}, !{contentModules} )
 
   .container
-    .row.text-center.mb-5( id='formTemplates')
-      h2.col-12.pt-5.text-center Choose template
-      script populateWithTemplates( !{listOfTemplates}, !{contentTemplates} )
-
-
-  .container
-    .row.text-center.mb-5( id='formModules')
-      h2.col-12.pt-5.text-center Choose modules
-      script populateWithModules( !{listOfModules}, !{contentModules} )
-
-  .container
-    .row.text-center.mb-5.justify-content-center( id='modules')
-      h2.col-12.pt-5.text-center Modules
+    .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center#modules
+      h2.display-4.col-12.pt-5.text-center Modules

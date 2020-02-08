@@ -28,13 +28,12 @@ fs.readdirSync(path.join(__dirname, pathOfModules), {
 fs.readdirSync(path.join(__dirname, pathOfTemplates), {
     withFileTypes: true
   })
-  .filter(child => !child.isDirectory())
+  .filter(child => child.isDirectory())
   .map(child => child.name)
-  .filter(name => name.endsWith('.json'))
   .forEach((name) => {
-    listOfTemplates.push(name.split('.json')[0]);
-    var content = fs.readFileSync(path.join(__dirname, pathOfTemplates + name)).toString('utf-8');
-    contentTemplates[name.split('.json')[0]] = JSON.stringify(content);
+    listOfTemplates.push(name);
+    var content = fs.readFileSync(path.join(__dirname, pathOfTemplates + '/' + name + '/index.html')).toString('utf-8');
+    contentTemplates[name] = content;
   });
 
 /* GET home page. */

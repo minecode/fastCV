@@ -145,4 +145,42 @@ const appendFormDiv = (form, content) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const populateWithTemplates = (listOfTemplates, contentTemplates) => {};
+const populateWithTemplates = (listOfTemplates, contentTemplates) => {
+	listOfTemplates = listOfTemplates.sort();
+	var form = document.getElementById('formTemplates');
+	form.setAttribute('class', 'row text-center');
+	var form2 = document.createElement('form');
+	form2.setAttribute('class', 'row justify-content-center');
+	listOfTemplates.forEach(element => {
+		var formDiv = document.createElement('div');
+		formDiv.setAttribute('id', element + 'Id');
+		formDiv.setAttribute('class', 'form-check col-auto p-5');
+		var h4 = document.createElement('h4');
+		var title = element.replace('_', ' ').split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+		var text = document.createTextNode(title);
+		var preview = document.createElement('div');
+		preview.setAttribute('id', element + 'Preview');
+		preview.setAttribute('class', 'col-12 mt-3 mb-3');
+		var image = document.createElement('img');
+		image.setAttribute('src', './templates/' + element + '/images/imagePreview.svg');
+		image.setAttribute('style', 'height: 100px');
+		image.setAttribute('class', 'p-3');
+		preview.append(image);
+		h4.append(text);
+		formDiv.append(h4);
+		formDiv.append(preview);
+		var input = document.createElement('input');
+		input.setAttribute('type', 'radio');
+		input.setAttribute('class', 'form-check-input');
+		input.setAttribute('id', 'input')
+		formDiv.append(input);
+		var label = document.createElement('label');
+		label.setAttribute('class', 'form-check-label');
+		label.setAttribute('for', 'input');
+		var text = document.createTextNode('Select')
+		label.append(text);
+		formDiv.appendChild(label);
+		form2.append(formDiv);
+	});
+	form.append(form2);
+};
